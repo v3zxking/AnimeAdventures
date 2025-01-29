@@ -7,7 +7,8 @@ if not getgenv().BuddhaForm or getgenv().BuddhaForm == "" then
 end
 
 repeat task.wait() until game:IsLoaded()
-repeat task.wait() until game:GetService("Workspace"):FindFirstChild("_UNITS")
+
+task.wait(math.random())
 getgenv().AutoBuddha = true -- change to false to shut off auto buddha if anything goes wrong.
 print("Auto Buddha Ability - Activated")
 
