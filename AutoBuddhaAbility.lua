@@ -1,4 +1,3 @@
-getgenv().BuddhaForm = "two"
 -- "one" Normal / Small aoe
 -- "two" Big aoe bleed
 -- "three" Line aoe hybrid
