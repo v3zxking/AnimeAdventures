@@ -1,7 +1,9 @@
+getgenv().BuddhaForm = "two"
 -- "one" Normal / Small aoe
 -- "two" Big aoe bleed
 -- "three" Line aoe hybrid
-if not getgenv().BuddhaForm then
+
+if not getgenv().BuddhaForm or getgenv().BuddhaForm == "" then
     getgenv().BuddhaForm = "two" -- Auto Bleed Attack Form
 end
 
