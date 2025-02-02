@@ -14,4 +14,4 @@ getgenv().GabrielWebhook = {
 
 pcall(function()
     loadstring(game:HttpGet("https://raw.githubusercontent.com/v3zxking/AnimeAdventures/refs/heads/main/AAWebhook.lua"))()
-end)```
+end)
