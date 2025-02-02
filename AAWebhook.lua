@@ -1,7 +1,7 @@
 if getgenv().GbrlExec then return end
 getgenv().GbrlExec = true
 if not getgenv().GabrielWebhook then
-    print("[Gabriel WH] [⚙️]: MIssing configuration, please copy the guide given.")
+    print("[Gabriel WH] [⚙️]: Missing configuration, please copy the guide given.")
     return
 end
 if not getgenv().GabrielWebhook.URL or getgenv().GabrielWebhook.URL == "" then 
@@ -31,6 +31,9 @@ local waveStarted = workspace["_waves_started"]
 if waveStarted then
     repeat task.wait() until waveStarted.Value == true
 end
+
+-- Time Started
+local startTime = os.clock()
 
 print("[Gabriel WH] [✅]: Webhook Result")
 print("[Gabriel WH] [⚙️]:\nURL = \'".. GabrielWebhook.URL .."\'\nDiscord_ID = \'".. GabrielWebhook.Discord_ID.."\'\nSecret_Ping = ".. tostring(GabrielWebhook.SecretPing))
@@ -250,16 +253,24 @@ function tablelength(T)
     local count = 0
     for _ in pairs(T) do count = count + 1 end
     return count
-  end
+end
 
--- local new_item_data = {}
--- -- auto check new item
--- coroutine.resume(coroutine.create(function()
---     while true do
---         new_item_data = update_inventory(new_item_data)
-
---     end
--- end))
+function formatElapsedTime(seconds)
+    if seconds < 60 then
+      return string.format("%02d:%02d", 0, math.floor(seconds)) -- MM:SS
+    elseif seconds < 3600 then  -- Less than an hour
+      local minutes = math.floor(seconds / 60)
+      local remainingSeconds = math.fmod(seconds, 60)
+      return string.format("%02d:%02d", minutes, remainingSeconds) -- MM:SS
+    else  -- An hour or more
+      local hours = math.floor(seconds / 3600)
+      local remainingSecondsAfterHours = math.fmod(seconds, 3600)
+      local minutes = math.floor(remainingSecondsAfterHours / 60)
+      local remainingSeconds = math.fmod(remainingSecondsAfterHours, 60)
+      return string.format("%02d:%02d:%02d", hours, minutes, remainingSeconds) -- HH:MM:SS
+    end
+end
+  
 function webhook()
     local url = GabrielWebhook.URL
     if not url or url == "" then return end
@@ -271,6 +282,9 @@ function webhook()
         victory = 4050024,
         defeat = 11348008,
     }
+    local endTime = os.clock()
+    local elapsedTime = endTime - startTime
+    local outputTime = formatElapsedTime(elapsedTime)
 
     local Time = os.date('!*t', OSTime)
     local player = game.Players.LocalPlayer
@@ -427,9 +441,8 @@ function webhook()
                 },
                 ["description"] = "",
                 ["color"] = color,
-                ["timestamp"] = string.format('%d-%d-%dT%02d:%02d:%02dZ', Time.year, Time.month, Time.day, Time.hour, Time.min, Time.sec),
                 ["footer"] = {
-                    ["text"] = "... Result"
+                    ["text"] = "Game Result (".. string.format('%02d:%02d:%02d', Time.hour, Time.min, Time.sec) ..")"
                 },
                 ["fields"] = {
                     {
@@ -439,7 +452,7 @@ function webhook()
                     },
                     {
                         ["name"] = "Match",
-                        ["value"] = worldResult .. "\n**Waves Finished:** ".. tostring(waves[2]) .. "\n(Time ".. tostring(ttime[2]) .. ")",
+                        ["value"] = worldResult .. "\n**Waves Finished:** ".. tostring(waves[2]) .. "\n(Time: ".. outputTime .. ")",
                         ["inline"] = true,
                     },
                     {
