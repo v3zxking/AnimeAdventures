@@ -39,6 +39,9 @@ game.Players.LocalPlayer.OnTeleport:Connect(
     end
 )
 
+-- Time Started
+local startTime = os.clock()
+
 local workspace = game:GetService("Workspace")
 local waveStarted = workspace["_waves_started"]
 
@@ -47,9 +50,6 @@ if waveStarted then
         task.wait()
     until waveStarted.Value == true
 end
-
--- Time Started
-local startTime = os.clock()
 
 print("[Gabriel WH] [✅]: Webhook Result")
 print(
