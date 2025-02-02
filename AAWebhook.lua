@@ -177,6 +177,7 @@ function getDropResult(old, new)
         units = {}, -- List of unit names received
         items = {}, -- List of items received
         ping = false, -- True if a secret rarity item is received
+        message = {}, -- Insert a message for secret/unit received 
     }
 
     for i, v in pairs(new) do
@@ -191,10 +192,12 @@ function getDropResult(old, new)
                 -- Shiny unit received
                 dropResult.ping = true -- Always ping when a unit is received
                 table.insert(dropResult.units, "+ (" .. tostring(shinyDifference) .. ") " .. v.name .. " (Shiny) [".. v.shiny .."]")
+                table.insert(dropResult.message, tostring(countDifference) .. " ".. v.name .. " (Shiny)" .. " [".. comma_value(v.count) .."]")
             elseif countDifference > 0 then
                 -- Non-shiny unit received
                 dropResult.ping = true -- Always ping when a unit is received
                 table.insert(dropResult.units, "+ (" .. tostring(countDifference) .. ") " .. v.name .. " [".. v.count .."]")
+                table.insert(dropResult.message, tostring(countDifference) .. " ".. v.name .. " [".. comma_value(v.count) .."]")
             end
         end
 
@@ -202,9 +205,9 @@ function getDropResult(old, new)
         if v.count > 0 and (v.count - oldData.count) > 0 then
             local itemDifference = v.count - oldData.count
             table.insert(dropResult.items, "+ (" .. tostring(itemDifference) .. ") " .. v.name .. " [".. comma_value(v.count) .."]")
-
             if v.rarity == "Secret" then
                 dropResult.ping = true -- Ping if a secret rarity item is received
+                table.insert(dropResult.message, tostring(itemDifference) .. " ".. v.name .. " [".. comma_value(v.count) .."]")
             end
         end
     end
