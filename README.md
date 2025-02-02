@@ -15,3 +15,25 @@ getgenv().GabrielWebhook = {
 pcall(function()
     loadstring(game:HttpGet("https://raw.githubusercontent.com/v3zxking/AnimeAdventures/refs/heads/main/AAWebhook.lua"))()
 end)
+```
+
+For auto buddha ability, there are 3 options for this. pick one as you see fit to use in game.
+Change `getgenv().BuddhaForm = ""`
+```lua
+getgenv().BuddhaForm = "two"
+-- "one" Normal / Small aoe
+-- "two" Big aoe bleed
+-- "three" Line aoe hybrid
+
+pcall(function()
+    task.wait( math.random() )
+    loadstring(game:HttpGet('https://raw.githubusercontent.com/v3zxking/AnimeAdventures/refs/heads/main/AutoBuddhaAbility.lua'))()
+end)
+```
+
+Auto Universal Ability - it automatically detects units with ability and use its ability.
+```lua
+pcall(function()
+   loadstring(game:HttpGet('https://github.com/v3zxking/AnimeAdventures/blob/main/AutoUniversalAbility.lua'))()
+end)
+```
