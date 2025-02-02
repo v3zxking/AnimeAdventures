@@ -521,7 +521,7 @@ function webhook()
         ["embeds"] = {
             {
                 ["title"] = "Anime Adventures",
-                ["description"] = drop_results.message ~= "" and "You received " .. drop_results.message or "",
+                ["description"] = (drop_results.message ~= "" and "You received " .. drop_results.message) or "",
                 ["color"] = color,
                 ["footer"] = {
                     ["text"] = "Vile (" .. string.format("%02d:%02d:%02d", Time.hour, Time.min, Time.sec) .. ")"
