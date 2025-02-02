@@ -18,7 +18,7 @@ end)
 ```
 
 For auto buddha ability, there are 3 options for this. pick one as you see fit to use in game.
-Change `getgenv().BuddhaForm = ""`
+Change `getgenv().BuddhaForm = ""` [Open Source](https://github.com/v3zxking/AnimeAdventures/blob/main/AutoBuddhaAbility.lua)
 ```lua
 getgenv().BuddhaForm = "two"
 -- "one" Normal / Small aoe
