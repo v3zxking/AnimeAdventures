@@ -1,7 +1,6 @@
 if getgenv().GbrlExec then
     return
 end
-getgenv().GbrlExec = true
 if not getgenv().GabrielWebhook then
     print("[Gabriel WH] [⚙️]: Missing configuration, please copy the guide given.")
     return
@@ -18,6 +17,8 @@ repeat
     task.wait()
 until game.Workspace:FindFirstChild(game.Players.LocalPlayer.Name)
 
+local HttpService = game:GetService("HttpService")
+
 -- AutoExecute on Teleport
 task.spawn(
     function()
@@ -32,7 +33,6 @@ task.spawn(
                 end
                 queue_on_teleport(
                     [[
-        repeat task.wait() until game:IsLoaded()
         wait(2)
         if getgenv().GbrlExec then return end -- avoid multiple executions
         loadstring(game:HttpGet("https://raw.githubusercontent.com/v3zxking/AnimeAdventures/refs/heads/main/AAWebhook.lua"))()
@@ -48,7 +48,7 @@ local startTime = os.clock()
 
 local workspace = game:GetService("Workspace")
 local waveStarted = workspace["_waves_started"]
-
+getgenv().GbrlExec = true
 if waveStarted then
     repeat
         task.wait()
@@ -468,9 +468,9 @@ function webhook()
     if gamemode == "Infinite Mode" then
         worldResult = gamemode .. " - " .. world
     elseif string.find(mapconfig["id"], "event") then
-        worldResult = "(" .. world .. " - " .. gamemode .. ")\n**- " .. result .. "**"
+        worldResult = "(" .. world .. " - **" .. result .. "**)\n" .. gamemode .. ""
     elseif gamemode == "Raid Mode" then
-        worldResult = "(" .. world .. " - " .. GetLevelData["name"]:gsub("Raid: ", "") .. ")" .. "\n- " .. result
+        worldResult = "(" .. world .. " - **" .. result .. "**)" .. "\n" .. GetLevelData["name"]:gsub("Raid: ", "")
     elseif string.find(gamemode, "Infinity Castle") then
         worldResult =
             gamemode .. " - **" .. result .. "**\n(" .. world .. " - Room: " .. tostring(mapconfig["floor_num"]) .. ")"
