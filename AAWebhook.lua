@@ -19,7 +19,8 @@ repeat
 until game.Workspace:FindFirstChild(game.Players.LocalPlayer.Name)
 
 -- AutoExecute on Teleport
-local queue_on_teleport = queue_on_teleport or syn.queue_on_teleport or fluxus.queue_on_teleport or function(...)
+task.spawn(function()
+    local queue_on_teleport = queue_on_teleport or syn.queue_on_teleport or fluxus.queue_on_teleport or function(...)
         return ...
     end
 game.Players.LocalPlayer.OnTeleport:Connect(
@@ -37,6 +38,7 @@ game.Players.LocalPlayer.OnTeleport:Connect(
         )
     end
 )
+end)
 
 -- Time Started
 local startTime = os.clock()
