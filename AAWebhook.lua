@@ -213,7 +213,7 @@ function getDropResult(old, new)
     end
     dropResult.items = table.concat(dropResult.items, "\n")
     dropResult.units = table.concat(dropResult.units, "\n")
-
+    dropResult.message = table.concat(dropResult.message, ", ")
     if dropResult.items ~= "" then
         dropResult.items = "\n".. dropResult.items
     end
@@ -426,6 +426,9 @@ function webhook()
 
     if not drop_results.ping then
         pingUser = " "
+    end
+    if drop_results.message ~= "" then
+        pingUser = pingUser .. ", you Received ".. drop_results.message
     end
 
     local color = colors.default
