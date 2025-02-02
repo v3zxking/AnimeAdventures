@@ -1,3 +1,5 @@
+if getgenv().GbrlExec then return end
+getgenv().GbrlExec = true
 if not getgenv().GabrielWebhook then
     print("[Gabriel WH] [⚙️]: MIssing configuration, please copy the guide given.")
     return
@@ -9,7 +11,19 @@ end
 
 repeat task.wait() until game:IsLoaded()
 repeat task.wait() until game.Workspace:FindFirstChild(game.Players.LocalPlayer.Name)
+task.wait( math.random() )
 
+local queue_on_teleport = queue_on_teleport or syn.queue_on_teleport or fluxus.queue_on_teleport or function(...) return ... end
+
+game.Players.LocalPlayer.OnTeleport:Connect(function(state)
+    if state ~= Enum.TeleportState.Started and state ~= Enum.TeleportState.InProgress then return end
+    queue_on_teleport([[
+        repeat task.wait() until game:IsLoaded()
+        wait(2)
+        if getgenv().GbrlExec then return end -- avoid multiple executions
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/v3zxking/AnimeAdventures/refs/heads/main/AAWebhook.lua"))()
+    ]])
+end)
 
 local workspace = game:GetService("Workspace")
 local waveStarted = workspace["_waves_started"]
