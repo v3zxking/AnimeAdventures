@@ -245,13 +245,13 @@ function getDropResult(old, new)
             local itemDifference = v.count - oldData.count
             table.insert(
                 dropResult.items,
-                "+ " .. tostring(itemDifference) .. " " .. v.name .. " { " .. comma_value(v.count) .. " }"
+                "+ " .. tostring(itemDifference) .. " " .. v.name .. " { " .. v.count .. " }"
             )
             if v.rarity == "Secret" then
                 dropResult.ping = true -- Ping if a secret rarity item is received
                 table.insert(
                     dropResult.message,
-                    tostring(itemDifference) .. " " .. v.name .. " { " .. comma_value(v.count) .. " }"
+                    tostring(itemDifference) .. " " .. v.name .. " { " .. v.count .. " }"
                 )
             end
         end
