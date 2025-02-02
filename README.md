@@ -17,7 +17,7 @@ pcall(function()
 end)
 ```
 
-For auto buddha ability, there are 3 options for this. pick one as you see fit to use in game.
+For Auto Buddha ability, there are 3 options for this. Pick one as you see fit to use in-game.
 Change `getgenv().BuddhaForm = ""` [Open Source](https://github.com/v3zxking/AnimeAdventures/blob/main/AutoBuddhaAbility.lua)
 ```lua
 getgenv().BuddhaForm = "two"
@@ -31,7 +31,7 @@ pcall(function()
 end)
 ```
 
-Auto Universal Ability - it automatically detects units with ability and use its ability.
+Auto Universal Ability: It automatically detects units with ability and uses its ability.
 ```lua
 pcall(function()
    loadstring(game:HttpGet('https://raw.githubusercontent.com/v3zxking/AnimeAdventures/refs/heads/main/AutoBuddhaAbility.lua'))()
