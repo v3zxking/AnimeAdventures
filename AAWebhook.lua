@@ -19,26 +19,29 @@ repeat
 until game.Workspace:FindFirstChild(game.Players.LocalPlayer.Name)
 
 -- AutoExecute on Teleport
-task.spawn(function()
-    local queue_on_teleport = queue_on_teleport or syn.queue_on_teleport or fluxus.queue_on_teleport or function(...)
-        return ...
-    end
-game.Players.LocalPlayer.OnTeleport:Connect(
-    function(state)
-        if state ~= Enum.TeleportState.Started and state ~= Enum.TeleportState.InProgress then
-            return
-        end
-        queue_on_teleport(
-            [[
+task.spawn(
+    function()
+        local queue_on_teleport =
+            queue_on_teleport or syn.queue_on_teleport or fluxus.queue_on_teleport or function(...)
+                return ...
+            end
+        game.Players.LocalPlayer.OnTeleport:Connect(
+            function(state)
+                if state ~= Enum.TeleportState.Started and state ~= Enum.TeleportState.InProgress then
+                    return
+                end
+                queue_on_teleport(
+                    [[
         repeat task.wait() until game:IsLoaded()
         wait(2)
         if getgenv().GbrlExec then return end -- avoid multiple executions
         loadstring(game:HttpGet("https://raw.githubusercontent.com/v3zxking/AnimeAdventures/refs/heads/main/AAWebhook.lua"))()
     ]]
+                )
+            end
         )
     end
 )
-end)
 
 -- Time Started
 local startTime = os.clock()
@@ -234,10 +237,7 @@ function getDropResult(old, new)
                     dropResult.units,
                     "+ " .. tostring(countDifference) .. " " .. v.name .. " { " .. v.count .. " }"
                 )
-                table.insert(
-                    dropResult.message,
-                    tostring(countDifference) .. " " .. v.name .. " { " .. v.count .. " }"
-                )
+                table.insert(dropResult.message, tostring(countDifference) .. " " .. v.name .. " { " .. v.count .. " }")
             end
         end
 
@@ -250,10 +250,7 @@ function getDropResult(old, new)
             )
             if v.rarity == "Secret" then
                 dropResult.ping = true -- Ping if a secret rarity item is received
-                table.insert(
-                    dropResult.message,
-                    tostring(itemDifference) .. " " .. v.name .. " { " .. v.count .. " }"
-                )
+                table.insert(dropResult.message, tostring(itemDifference) .. " " .. v.name .. " { " .. v.count .. " }")
             end
         end
     end
@@ -523,7 +520,7 @@ function webhook()
         ["content"] = "" .. pingUser .. "",
         ["embeds"] = {
             {
-                ["title"] = "Anime Adventures"
+                ["title"] = "Anime Adventures",
                 ["description"] = "You received " .. drop_results.message or "",
                 ["color"] = color,
                 ["footer"] = {
@@ -534,9 +531,7 @@ function webhook()
                         ["name"] = "Player",
                         ["value"] = "Name: ||" ..
                             player.Name ..
-                                " (" ..
-                                    player.displayName ..
-                                        ")||\n" .. outputLevel .. "\n" .. total_stats_result,
+                                " (" .. player.displayName .. ")||\n" .. outputLevel .. "\n" .. total_stats_result,
                         ["inline"] = true
                     },
                     {
