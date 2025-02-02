@@ -26,7 +26,7 @@ getgenv().BuddhaForm = "two"
 -- "three" Line aoe hybrid
 
 pcall(function()
-    task.wait( math.random() )
+    task.wait(2)
     loadstring(game:HttpGet('https://raw.githubusercontent.com/v3zxking/AnimeAdventures/refs/heads/main/AutoBuddhaAbility.lua'))()
 end)
 ```
