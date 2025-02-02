@@ -13,8 +13,8 @@ repeat task.wait() until game:IsLoaded()
 repeat task.wait() until game.Workspace:FindFirstChild(game.Players.LocalPlayer.Name)
 task.wait( math.random() )
 
+-- AutoExecute on Teleport
 local queue_on_teleport = queue_on_teleport or syn.queue_on_teleport or fluxus.queue_on_teleport or function(...) return ... end
-
 game.Players.LocalPlayer.OnTeleport:Connect(function(state)
     if state ~= Enum.TeleportState.Started and state ~= Enum.TeleportState.InProgress then return end
     queue_on_teleport([[
