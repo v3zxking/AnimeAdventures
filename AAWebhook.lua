@@ -388,7 +388,7 @@ function webhook()
     if gamemode == 'Infinite Mode' then
         worldResult = gamemode .." - ".. world
     elseif string.find(mapconfig['id'], "event") then
-        worldResult = "(".. world .. " - ".. gamemode ..")\n- ".. result
+        worldResult = "(".. world .. " - ".. gamemode ..")\n**- ".. result .. "**"
     elseif gamemode == 'Raid Mode' then
         worldResult = "(".. world .." - ".. GetLevelData["name"]:gsub('Raid: ', '') ..")" .. "\n- " .. result
     elseif string.find(gamemode, 'Infinity Castle') then
@@ -458,7 +458,7 @@ function webhook()
                     },
                     {
                         ["name"] = "Match",
-                        ["value"] = worldResult .. "\n**Waves Finished:** ".. tostring(waves[2]) .. "\n(Time: ".. outputTime .. ")",
+                        ["value"] = "**Waves Finished:** ".. tostring(waves[2]) .. " (" .. outputTime..")\n" .. worldResult
                         ["inline"] = true,
                     },
                     {
