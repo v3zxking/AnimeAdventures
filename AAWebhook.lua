@@ -220,22 +220,22 @@ function getDropResult(old, new)
                 dropResult.ping = true -- Always ping when a unit is received
                 table.insert(
                     dropResult.units,
-                    "+ " .. tostring(shinyDifference) .. " " .. v.name .. " (Shiny) {**" .. v.shiny .. "**}"
+                    "+ " .. tostring(shinyDifference) .. " " .. v.name .. " (Shiny) { " .. v.shiny .. " }"
                 )
                 table.insert(
                     dropResult.message,
-                    tostring(countDifference) .. " " .. v.name .. " (Shiny)" .. " {**" .. v.count .. "**}"
+                    tostring(countDifference) .. " " .. v.name .. " (Shiny)" .. " { " .. v.count .. " }"
                 )
             elseif countDifference > 0 then
                 -- Non-shiny unit received
                 dropResult.ping = true -- Always ping when a unit is received
                 table.insert(
                     dropResult.units,
-                    "+ " .. tostring(countDifference) .. " " .. v.name .. " {**" .. v.count .. "**}"
+                    "+ " .. tostring(countDifference) .. " " .. v.name .. " { " .. v.count .. " }"
                 )
                 table.insert(
                     dropResult.message,
-                    tostring(countDifference) .. " " .. v.name .. " {**" .. v.count .. "**}"
+                    tostring(countDifference) .. " " .. v.name .. " { " .. v.count .. " }"
                 )
             end
         end
@@ -245,13 +245,13 @@ function getDropResult(old, new)
             local itemDifference = v.count - oldData.count
             table.insert(
                 dropResult.items,
-                "+ " .. tostring(itemDifference) .. " " .. v.name .. " {**" .. comma_value(v.count) .. "**}"
+                "+ " .. tostring(itemDifference) .. " " .. v.name .. " { " .. comma_value(v.count) .. " }"
             )
             if v.rarity == "Secret" then
                 dropResult.ping = true -- Ping if a secret rarity item is received
                 table.insert(
                     dropResult.message,
-                    tostring(itemDifference) .. " " .. v.name .. " {**" .. comma_value(v.count) .. "**}"
+                    tostring(itemDifference) .. " " .. v.name .. " { " .. comma_value(v.count) .. " }"
                 )
             end
         end
@@ -510,9 +510,6 @@ function webhook()
     if not drop_results.ping then
         pingUser = " "
     end
-    if drop_results.message ~= "" then
-        pingUser = pingUser .. ", Yyou Received " .. drop_results.message
-    end
 
     local color = colors.default
     if result == "VICTORY" then
@@ -525,13 +522,11 @@ function webhook()
         ["content"] = "" .. pingUser .. "",
         ["embeds"] = {
             {
-                ["author"] = {
-                    ["name"] = "Anime Adventures"
-                },
-                ["description"] = "",
+                ["title"] = "Anime Adventures"
+                ["description"] = "You received " .. drop_results.message or "",
                 ["color"] = color,
                 ["footer"] = {
-                    ["text"] = "Game Result (" .. string.format("%02d:%02d:%02d", Time.hour, Time.min, Time.sec) .. ")"
+                    ["text"] = "Vile (" .. string.format("%02d:%02d:%02d", Time.hour, Time.min, Time.sec) .. ")"
                 },
                 ["fields"] = {
                     {
