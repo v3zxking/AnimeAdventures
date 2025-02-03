@@ -62,12 +62,10 @@ if waveStarted then
 end
 
 print("[Gabriel WH] [✅]: Webhook Result")
-print(
-    "[Gabriel WH] [⚙️]:\nURL = '" ..
-        GabrielWebhook.URL ..
-            "'\nDiscord_ID = '" ..
-                GabrielWebhook.Discord_ID .. "'\nSecret_Ping = " .. tostring(GabrielWebhook.SecretPing)
-)
+print("[Gabriel WH] [⚙️]: ")
+for i, v in pairs(GabrielWebhook) do
+    print("[".. i .."] = " .. tostring(v)) -- display configuration
+end
 
 local HttpService = game:GetService("HttpService")
 local v5 = require(game.ReplicatedStorage.src.Loader)
