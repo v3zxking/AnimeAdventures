@@ -9,9 +9,10 @@ end
 
 -- Initialize the execution counter if it doesn't exist
 getgenv().VileExec = getgenv().VileExec or 0
-if getgenv().GbrlExec then 
+if getgenv().GbrlExec then
     getgenv().VileExec = getgenv().VileExec + 1
     print("[Gabriel WH] [⚙️]: Script executed multiple times. Execution count: " .. getgenv().VileExec)
+    return -- exit to avoid
 end -- avoid multiple executions
 -- Set the execution flag
 getgenv().GbrlExec = true
