@@ -336,7 +336,8 @@ function webhook()
     local elapsedTime = endTime - startTime
     local outputTime = formatElapsedTime(elapsedTime)
 
-    local Time = os.date("!*t", OSTime)
+    local OSTime = os.time()
+    local Time = os.date("*t", OSTime)
     local player = game.Players.LocalPlayer
     local currentXp = v19["session"]["profile_data"]["player_xp"]
     local playerLevel, currentXpInLevel, maxXpForLevel = determinePlayerLevel(currentXp)
