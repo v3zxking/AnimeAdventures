@@ -1,7 +1,3 @@
-if getgenv().GbrlExec then
-    return
-end
-getgenv().GbrlExec = true
 if not getgenv().GabrielWebhook then
     print("[Gabriel WH] [⚙️]: Missing configuration, please copy the guide given.")
     return
@@ -11,6 +7,18 @@ if not getgenv().GabrielWebhook.URL or getgenv().GabrielWebhook.URL == "" then
     return
 end
 
+-- Initialize the execution counter if it doesn't exist
+getgenv().VileExec = getgenv().VileExec or 0
+if getgenv().GbrlExec then 
+    getgenv().VileExec = getgenv().VileExec + 1
+    print("[Gabriel WH] [⚙️]: Script executed multiple times. Execution count: " .. getgenv().VileExec)
+end -- avoid multiple executions
+-- Set the execution flag
+getgenv().GbrlExec = true
+-- Increment the execution counter for the first execution
+getgenv().VileExec = getgenv().VileExec + 1
+-- Continue with the rest of your script logic
+print("[Gabriel WH] [⚙️]: Script executed. Execution count: " .. getgenv().VileExec)
 repeat
     task.wait()
 until game:IsLoaded()
@@ -41,7 +49,6 @@ game.Players.LocalPlayer.OnTeleport:Connect(
         )
     end
 )
-
 -- Time Started
 local startTime = os.clock()
 
