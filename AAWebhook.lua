@@ -17,6 +17,9 @@ repeat
     task.wait()
 until game.Workspace:FindFirstChild(game.Players.LocalPlayer.Name)
 
+local player = game:GetService("Players").LocalPlayer
+local playerGui = player.PlayerGui
+
 local HttpService = game:GetService("HttpService")
 
 -- AutoExecute on Teleport
@@ -339,7 +342,7 @@ function webhook()
     local OSTime = os.time()
     local Time = os.date("*t", OSTime)
     local player = game.Players.LocalPlayer
-    local currentXp = v19["session"]["profile_data"]["player_xp"]
+    local currentXp = player._stats.player_xp.Value
     local playerLevel, currentXpInLevel, maxXpForLevel = determinePlayerLevel(currentXp)
     local outputLevel = string.format("Level %d ||[%d/%d]||", playerLevel, currentXpInLevel, maxXpForLevel)
     -- Player Stats
