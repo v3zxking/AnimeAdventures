@@ -62,7 +62,7 @@ if waveStarted then
 end
 
 print("[Gabriel WH] [✅]: Webhook Result")
-print("[Gabriel WH] [⚙️]: ")
+print("[Gabriel WH] [⚙️]: Settings")
 for i, v in pairs(GabrielWebhook) do
     print("[".. i .."] = " .. tostring(v)) -- display configuration
 end
