@@ -1,6 +1,7 @@
 if getgenv().GbrlExec then
     return
 end
+getgenv().GbrlExec = true
 if not getgenv().GabrielWebhook then
     print("[Gabriel WH] [⚙️]: Missing configuration, please copy the guide given.")
     return
@@ -23,25 +24,20 @@ local playerGui = player.PlayerGui
 local HttpService = game:GetService("HttpService")
 
 -- AutoExecute on Teleport
-task.spawn(
-    function()
-        local queue_on_teleport =
-            queue_on_teleport or syn.queue_on_teleport or fluxus.queue_on_teleport or function(...)
-                return ...
-            end
-        game.Players.LocalPlayer.OnTeleport:Connect(
-            function(state)
-                if state ~= Enum.TeleportState.Started and state ~= Enum.TeleportState.InProgress then
-                    return
-                end
-                queue_on_teleport(
-                    [[
-        wait(2)
-        if getgenv().GbrlExec then return end -- avoid multiple executions
-        loadstring(game:HttpGet("https://raw.githubusercontent.com/v3zxking/AnimeAdventures/refs/heads/main/AAWebhook.lua"))()
+local queue_on_teleport = queue_on_teleport or syn.queue_on_teleport or fluxus.queue_on_teleport or function(...)
+        return ...
+    end
+game.Players.LocalPlayer.OnTeleport:Connect(
+    function(state)
+        if state ~= Enum.TeleportState.Started and state ~= Enum.TeleportState.InProgress then
+            return
+        end
+        queue_on_teleport(
+            [[
+    task.wait(2)
+    if getgenv().GbrlExec then return end -- avoid multiple executions
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/v3zxking/AnimeAdventures/refs/heads/main/AAWebhook.lua"))()
     ]]
-                )
-            end
         )
     end
 )
@@ -51,7 +47,6 @@ local startTime = os.clock()
 
 local workspace = game:GetService("Workspace")
 local waveStarted = workspace["_waves_started"]
-getgenv().GbrlExec = true
 if waveStarted then
     repeat
         task.wait()
