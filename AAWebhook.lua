@@ -345,7 +345,7 @@ function webhook()
     local player = game.Players.LocalPlayer
     local currentXp = player._stats.player_xp.Value
     local playerLevel, currentXpInLevel, maxXpForLevel = determinePlayerLevel(currentXp)
-    local outputLevel = string.format("Level %d ||[%d/%d]||", playerLevel, currentXpInLevel, maxXpForLevel)
+    local outputLevel = string.format("Level: %d ||[%d/%d]||", playerLevel, currentXpInLevel, maxXpForLevel)
     -- Total XP Given
     local xp_received = currentXp - v19["session"]["profile_data"]["player_xp"]
     local output_xp_received = (xp_received > 0 and "\n+ " .. xp_received .. " XP") or ""
