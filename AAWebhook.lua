@@ -64,7 +64,7 @@ end
 print("[Gabriel WH] [✅]: Webhook Result")
 print("[Gabriel WH] [⚙️]: Settings")
 for i, v in pairs(GabrielWebhook) do
-    print("[".. i .."] = " .. tostring(v)) -- display configuration
+    print("[" .. i .. "] = " .. tostring(v)) -- display configuration
 end
 
 local HttpService = game:GetService("HttpService")
@@ -421,69 +421,64 @@ function webhook()
     end
 
     -- Get game mode and result
-    _map = game:GetService("Workspace")["_BASES"].player.base["fake_unit"]:WaitForChild("HumanoidRootPart")
-    mapconfig = game:GetService("Workspace")._MAP_CONFIG.GetLevelData:InvokeServer()
-    GetLevelData = game.workspace._MAP_CONFIG:WaitForChild("GetLevelData"):InvokeServer()
-    world = Worlds[GetLevelData.world] or GetLevelData._location_name or GetLevelData.name
-    mapname = mapconfig["name"]
-    gamemode = mapconfig["_gamemode"]
-    portaldepth = ""
-    challenge = ""
+    local mapconfig = game.workspace._MAP_CONFIG:GetLevelData():InvokeServer()
+    local getLevelData = game.workspace._MAP_CONFIG:GetLevelData():InvokeServer()
+
+    if not mapconfig or not getLevelData then
+        return
+    end
+
+    local world = Worlds[getLevelData.world] or getLevelData._location_name or getLevelData.name
+    local gamemode = mapconfig["_gamemode"]
+    local portaldepth = ""
+    local challenge = ""
+
+    -- Format strings
     if mapconfig["_portal_depth"] then
         portaldepth = "\n(Tier: " .. mapconfig["_portal_depth"] .. ")"
     end
+
     if mapconfig["_challengename"] then
         challenge = " - " .. mapconfig["_challengename"]
     else
         challenge = " - " .. mapconfig["_difficulty"]
     end
-    if type(world) == "table" then
-        world = world.Name
-    end
-
-    if type(world) == "string" and string.find(world, "Raid:") then
-        world = world:gsub("Raid: ")
-        challenge = " - " .. world
-    end
 
     -- Determine Gamemode
-    if gamemode == "challenge" then
-        gamemode = "Challenge Mode"
-    elseif mapconfig["_portal_only_level"] then
+    gamemode =
+        ({
+        ["challenge"] = "Challenge Mode",
+        ["raid"] = "Raid Mode",
+        ["story"] = "Story Mode",
+        ["infinite"] = "Infinite Mode",
+        ["infinite_tower"] = "Infinity Castle Mode"
+    })[mapconfig["_gamemode"]] or mapconfig["name"]
+
+    -- Portal Mode check
+    if mapconfig["_portal_only_level"] then
         if mapconfig["_challengename"] then
             gamemode = "Portal Mode" .. challenge
         else
             gamemode = "Portal Mode"
         end
-    elseif string.find(mapconfig["id"], "event") then
-        gamemode = mapname
-    elseif gamemode == "raid" then
-        gamemode = "Raid Mode"
-    elseif gamemode == "story" then
-        gamemode = "Story Mode"
-    elseif gamemode == "infinite" then
-        gamemode = "Infinite Mode"
-    elseif gamemode == "infinite_tower" then
-        gamemode = "Infinity Castle Mode"
-    else
-        gamemode = mapconfig["name"]
     end
 
-    totaltime = ResultHolder:FindFirstChild("Middle"):FindFirstChild("Timer").Text
-    totalwaves = ResultHolder:FindFirstChild("Middle"):FindFirstChild("WavesCompleted").Text
+    totalwaves = game:GetService("Workspace")["_wave_num"].Value
 
-    worldResult = gamemode .. " - **" .. result .. "**\n(" .. world .. "" .. challenge .. ")"
+    local worldResult = "(" .. world .. " - **" .. result .. "**)\n" .. gamemode .. (challenge or "")
+
     if gamemode == "Infinite Mode" then
         worldResult = gamemode .. " - " .. world
-    elseif string.find(mapconfig["id"], "event") then
-        worldResult = "(" .. world .. " - **" .. result .. "**)\n" .. gamemode .. ""
-    elseif gamemode == "Raid Mode" then
-        worldResult = "(" .. world .. " - **" .. result .. "**)" .. "\n" .. GetLevelData["name"]:gsub("Raid: ", "")
-    elseif string.find(gamemode, "Infinity Castle") then
+    elseif mapconfig.id:find("event") then
         worldResult =
-            gamemode .. " - **" .. result .. "**\n(" .. world .. " - Room: " .. tostring(mapconfig["floor_num"]) .. ")"
-    elseif string.find(gamemode, "Story Mode") then
-        worldResult = gamemode .. " - **" .. result .. "**\n(" .. world .. " - " .. tostring(mapconfig["name"]) .. ")"
+            "(" .. world .. " - **" .. result .. "**)\n" .. gamemode .. " [" .. mapconfig["_difficulty"] .. "]"
+    elseif gamemode == "Raid Mode" then
+        worldResult = "(" .. world .. " - **" .. result .. "**)\n" .. getLevelData.name:gsub("Raid: ", "")
+    elseif gamemode:find("Infinity Castle") then
+        worldResult =
+            "(" .. world .. " - **" .. result .. "**)\n" .. gamemode .. " - Room: " .. tostring(mapconfig["floor_num"])
+    elseif gamemode:find("Story Mode") then
+        worldResult = "(" .. world .. " - **" .. result .. "**)\n" .. gamemode .. " - " .. tostring(mapconfig["name"])
     end
 
     -- Item/Unit Result Drop
@@ -545,7 +540,7 @@ function webhook()
                     {
                         ["name"] = "Match",
                         ["value"] = "**Waves Finished:** " ..
-                            tostring(waves[2]) .. " (" .. outputTime .. ")\n" .. worldResult,
+                            tostring(totalwaves) .. " (" .. outputTime .. ")\n" .. worldResult,
                         ["inline"] = true
                     },
                     {
