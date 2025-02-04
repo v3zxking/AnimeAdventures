@@ -570,7 +570,7 @@ function webhook()
                     {
                         -- Rewards
                         ["name"] = "Rewards",
-                        ["value"] = text_results .. drop_results.items .. drop_results.units .. output_xp_received,
+                        ["value"] = text_results .. output_xp_received .. drop_results.items .. drop_results.units,
                         ["inline"] = false
                     }
                 }
