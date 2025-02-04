@@ -246,7 +246,7 @@ function getDropResult(old, new)
         end
 
         -- Check for items
-        if v.count > 0 and (v.count - oldData.count) > 0 then
+        if v.count > 0 and (v.count - oldData.count) > 0 and not unitscache[v['id']] then
             local itemDifference = v.count - oldData.count
             table.insert(
                 dropResult.items,
@@ -348,7 +348,7 @@ function webhook()
     local outputLevel = string.format("Level: %d ||[%d/%d]||", playerLevel, currentXpInLevel, maxXpForLevel)
     -- Total XP Given
     local xp_received = currentXp - v19["session"]["profile_data"]["player_xp"]
-    local output_xp_received = (xp_received > 0 and "\n+ " .. xp_received .. " XP") or ""
+    local output_xp_received = (xp_received > 0 and "\n> + " .. xp_received .. " XP") or ""
     -- Player Stats
     New_Stats = newStatsData()
     local result_stats = {}
@@ -546,7 +546,7 @@ function webhook()
                     {
                         -- Rewards
                         ["name"] = "Rewards",
-                        ["value"] = text_results .. drop_results.items .. output_xp_received .. drop_results.units,
+                        ["value"] = text_results .. drop_results.items .. drop_results.units .. output_xp_received,
                         ["inline"] = false
                     }
                 }
