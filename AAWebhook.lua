@@ -506,7 +506,7 @@ function webhook()
     local total_stats_result = {}
     for key, emoji in pairs(icons) do
         if currentStats[key] then
-            table.insert(total_stats_result, emoji .. " " .. comma_value(currentStats[key]))
+            table.insert(total_stats_result, emoji .. comma_value(currentStats[key]))
         end
     end
 
