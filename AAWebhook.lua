@@ -125,11 +125,16 @@ for _, Module in next, game:GetService("ReplicatedStorage"):WaitForChild("src"):
     end
 end
 
-function get_assassin_tokens()
-    local token_id = "sakamoto_coin"
-    if itemscache[token_id] then
-        local user_items = get_inventory_items()
-        return user_items[token_id] or 0
+function get_item_stats(id)
+    if itemscache[id] then
+        local items, unique_items = get_inventory_items(), get_inventory_items_unique_items()
+        if (items[id] and items[id] > 0) then
+            return items[id]
+        end
+        if (unique_items[id] and unique_items[id] > 0) then
+            return unique_items[id]
+        end
+        return 0
     end
     return 0
 end
@@ -517,7 +522,7 @@ function webhook()
         end
     end
     -- Assassin Token Stats
-    table.insert(total_stats_result, "<:assassintoken:1336267496403107900>" .. " " .. get_assassin_tokens())
+    table.insert(total_stats_result, "<:assassintoken:1336267496403107900>" .. " " .. get_item_stats("sakamoto_coin"))
 
     total_stats_result = table.concat(total_stats_result, "\n> ")
     local pingUser = "<@" .. discord_user .. ">"
