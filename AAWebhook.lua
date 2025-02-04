@@ -469,9 +469,10 @@ function webhook()
 
     if gamemode == "Infinite Mode" then
         worldResult = "> " .. gamemode .. " - " .. world
-    elseif mapconfig.id:find("event") then
+    elseif mapconfig["id"]:find("event") then
         worldResult =
-            "> (" .. world .. " - **" .. result .. "**)\n> " .. gamemode .. " [" .. mapconfig["_difficulty"] .. "]"
+            "> (" .. world .. " - **" .. result .. "**)\n> " .. mapconfig["name"] ~= world and
+            mapconfig["name"] .. " [" .. mapconfig["_difficulty"] .. "]"
     elseif gamemode == "Raid Mode" then
         worldResult = "> (" .. world .. " - **" .. result .. "**)\n> " .. getLevelData.name:gsub("Raid: ", "")
     elseif gamemode:find("Infinity Castle") then
@@ -503,7 +504,7 @@ function webhook()
     local total_stats_result = {}
     for key, emoji in pairs(icons) do
         if currentStats[key] then
-            table.insert(total_stats_result, emoji .. comma_value(currentStats[key]))
+            table.insert(total_stats_result, emoji .. " " .. comma_value(currentStats[key]))
         end
     end
 
