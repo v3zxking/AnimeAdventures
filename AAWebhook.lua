@@ -421,8 +421,8 @@ function webhook()
     end
 
     -- Get game mode and result
-    local mapconfig = game.workspace._MAP_CONFIG:GetLevelData():InvokeServer()
-    local getLevelData = game.workspace._MAP_CONFIG:GetLevelData():InvokeServer()
+    local mapconfig = game.workspace._MAP_CONFIG.GetLevelData:InvokeServer()
+    local getLevelData = game.workspace._MAP_CONFIG.GetLevelData:InvokeServer()
 
     if not mapconfig or not getLevelData then
         return
