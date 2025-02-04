@@ -258,6 +258,7 @@ function getDropResult(old, new)
             end
         end
     end
+
     dropResult.items = table.concat(dropResult.items, "\n> ")
     dropResult.units = table.concat(dropResult.units, "\n> ")
     dropResult.message = table.concat(dropResult.message, ", ")
@@ -465,23 +466,21 @@ function webhook()
 
     totalwaves = game:GetService("Workspace")["_wave_num"].Value
 
-    local worldResult = "> (" .. world .. " - **" .. result .. "**)\n> " .. gamemode .. (challenge or "")
+    local worldResult = "> (" .. world .. " - " .. result .. ")\n> " .. gamemode .. (challenge or "")
 
     if gamemode == "Infinite Mode" then
         worldResult = "> " .. gamemode .. " - " .. world
     elseif mapconfig["id"]:find("event") then
         worldResult =
-            "> (" .. world .. " - **" .. result .. "**)\n> " .. mapconfig["name"] ~= world and
+            "> (" .. world .. " - " .. result .. ")\n> " .. mapconfig["name"] ~= world and
             mapconfig["name"] .. " [" .. mapconfig["_difficulty"] .. "]"
     elseif gamemode == "Raid Mode" then
-        worldResult = "> (" .. world .. " - **" .. result .. "**)\n> " .. getLevelData.name:gsub("Raid: ", "")
+        worldResult = "> (" .. world .. " - " .. result .. ")\n> " .. getLevelData.name:gsub("Raid: ", "")
     elseif gamemode:find("Infinity Castle") then
         worldResult =
-            "> (" ..
-            world .. " - **" .. result .. "**)\n> " .. gamemode .. " - Room: " .. tostring(mapconfig["floor_num"])
+            "> (" .. world .. " - " .. result .. ")\n> " .. gamemode .. " - Room: " .. tostring(mapconfig["floor_num"])
     elseif gamemode:find("Story Mode") then
-        worldResult =
-            "> (" .. world .. " - **" .. result .. "**)\n> " .. gamemode .. " - " .. tostring(mapconfig["name"])
+        worldResult = "> (" .. world .. " - " .. result .. ")\n> " .. gamemode .. " - " .. tostring(mapconfig["name"])
     end
 
     -- Item/Unit Result Drop
@@ -542,7 +541,7 @@ function webhook()
                     },
                     {
                         ["name"] = "Match",
-                        ["value"] = "> **Waves Finished:** " ..
+                        ["value"] = "> Wave Completed: " ..
                             tostring(totalwaves) .. " (" .. outputTime .. ")\n" .. worldResult,
                         ["inline"] = false
                     },
