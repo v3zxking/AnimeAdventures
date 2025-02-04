@@ -246,7 +246,7 @@ function getDropResult(old, new)
         end
 
         -- Check for items
-        if v.count > 0 and (v.count - oldData.count) > 0 and not unitscache[v['id']] then
+        if v.count > 0 and (v.count - oldData.count) > 0 and not unitscache[v["id"]] then
             local itemDifference = v.count - oldData.count
             table.insert(
                 dropResult.items,
@@ -468,17 +468,19 @@ function webhook()
     local worldResult = "> (" .. world .. " - **" .. result .. "**)\n> " .. gamemode .. (challenge or "")
 
     if gamemode == "Infinite Mode" then
-        worldResult = "> ".. gamemode .. " - " .. world
+        worldResult = "> " .. gamemode .. " - " .. world
     elseif mapconfig.id:find("event") then
         worldResult =
-            > "(" .. world .. " - **" .. result .. "**)\n> " .. gamemode .. " [" .. mapconfig["_difficulty"] .. "]"
+            "> (" .. world .. " - **" .. result .. "**)\n> " .. gamemode .. " [" .. mapconfig["_difficulty"] .. "]"
     elseif gamemode == "Raid Mode" then
         worldResult = "> (" .. world .. " - **" .. result .. "**)\n> " .. getLevelData.name:gsub("Raid: ", "")
     elseif gamemode:find("Infinity Castle") then
         worldResult =
-            "> (" .. world .. " - **" .. result .. "**)\n> " .. gamemode .. " - Room: " .. tostring(mapconfig["floor_num"])
+            "> (" ..
+            world .. " - **" .. result .. "**)\n> " .. gamemode .. " - Room: " .. tostring(mapconfig["floor_num"])
     elseif gamemode:find("Story Mode") then
-        worldResult = "> (" .. world .. " - **" .. result .. "**)\n> " .. gamemode .. " - " .. tostring(mapconfig["name"])
+        worldResult =
+            "> (" .. world .. " - **" .. result .. "**)\n> " .. gamemode .. " - " .. tostring(mapconfig["name"])
     end
 
     -- Item/Unit Result Drop
