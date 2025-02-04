@@ -444,7 +444,7 @@ function webhook()
         return
     end
 
-    local world = Worlds[getLevelData.world] or getLevelData._location_name or getLevelData.name
+    local world = getLevelData._location_name or getLevelData.name
     local gamemode = mapconfig["_gamemode"]
     local portaldepth = ""
     local challenge = ""
@@ -487,8 +487,8 @@ function webhook()
         worldResult = "> " .. gamemode .. " - " .. world
     elseif mapconfig["id"]:find("event") then
         worldResult =
-            "> (" .. world .. " - " .. result .. ")\n> " .. mapconfig["name"] ~= world and
-            mapconfig["name"] .. " [" .. mapconfig["_difficulty"] .. "]"
+            "> (" .. world .. " - " .. result .. ")\n> " .. (getLevelData.name ~= world and
+            getLevelData.name) .. " [" .. mapconfig["_difficulty"] .. "]"
     elseif gamemode == "Raid Mode" then
         worldResult = "> (" .. world .. " - " .. result .. ")\n> " .. getLevelData.name:gsub("Raid: ", "")
     elseif gamemode:find("Infinity Castle") then
