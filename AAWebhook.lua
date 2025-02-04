@@ -124,6 +124,16 @@ for _, Module in next, game:GetService("ReplicatedStorage"):WaitForChild("src"):
         end
     end
 end
+
+function get_assassin_tokens()
+    local token_id = "sakamoto_coin"
+    if itemscache[token_id] then
+        local user_items = get_inventory_items()
+        return user_items[token_id] or 0
+    end
+    return 0
+end
+
 -- World Extract
 local Worlds = {}
 for _, Module in next, game:GetService("ReplicatedStorage"):WaitForChild("src"):WaitForChild("Data"):WaitForChild(
@@ -536,7 +546,14 @@ function webhook()
                         ["name"] = "Player",
                         ["value"] = "> Name: ||" ..
                             player.Name ..
-                                " (" .. player.displayName .. ")||\n> " .. outputLevel .. "\n> " .. total_stats_result,
+                                " (" ..
+                                    player.displayName ..
+                                        ")||\n> " ..
+                                            outputLevel ..
+                                                "\n> " ..
+                                                    total_stats_result ..
+                                                        "\n> <:assassintoken:1336267496403107900> " ..
+                                                            get_assassin_tokens(),
                         ["inline"] = false
                     },
                     {
