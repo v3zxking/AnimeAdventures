@@ -516,6 +516,8 @@ function webhook()
             table.insert(total_stats_result, emoji .. " " .. comma_value(currentStats[key]))
         end
     end
+    -- Assassin Token Stats
+    table.insert(total_stats_result, "<:assassintoken:1336267496403107900>" .. " " .. get_assassin_tokens())
 
     total_stats_result = table.concat(total_stats_result, "\n> ")
     local pingUser = "<@" .. discord_user .. ">"
@@ -546,14 +548,7 @@ function webhook()
                         ["name"] = "Player",
                         ["value"] = "> Name: ||" ..
                             player.Name ..
-                                " (" ..
-                                    player.displayName ..
-                                        ")||\n> " ..
-                                            outputLevel ..
-                                                "\n> " ..
-                                                    total_stats_result ..
-                                                        "\n> <:assassintoken:1336267496403107900> " ..
-                                                            get_assassin_tokens(),
+                                " (" .. player.displayName .. ")||\n> " .. outputLevel .. "\n> " .. total_stats_result,
                         ["inline"] = false
                     },
                     {
