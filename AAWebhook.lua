@@ -487,8 +487,13 @@ function webhook()
         worldResult = "> " .. gamemode .. " - " .. world
     elseif mapconfig["id"]:find("event") then
         worldResult =
-            "> (" .. world .. " - " .. result .. ")\n> " .. (getLevelData.name ~= world and
-            getLevelData.name) .. " [" .. mapconfig["_difficulty"] .. "]"
+            "> (" ..
+            world ..
+                " - " ..
+                    result ..
+                        ")\n> " ..
+                            (getLevelData.name ~= world and getLevelData.name) ..
+                                " [" .. mapconfig["_difficulty"] .. "]"
     elseif gamemode == "Raid Mode" then
         worldResult = "> (" .. world .. " - " .. result .. ")\n> " .. getLevelData.name:gsub("Raid: ", "")
     elseif gamemode:find("Infinity Castle") then
