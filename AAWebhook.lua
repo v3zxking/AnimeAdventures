@@ -353,13 +353,13 @@ function webhook()
     New_Stats = newStatsData()
     local result_stats = {}
     if (New_Stats.Gems - Old_Stats.Gems) > 0 then
-        table.insert(result_stats, "+ " .. New_Stats.Gems - Old_Stats.Gems .. " Gems")
+        table.insert(result_stats, "> + " .. New_Stats.Gems - Old_Stats.Gems .. " Gems")
     end
     if (New_Stats.Gold - Old_Stats.Gold) > 0 then
-        table.insert(result_stats, "+ " .. New_Stats.Gold - Old_Stats.Gold .. " Gold")
+        table.insert(result_stats, "> + " .. New_Stats.Gold - Old_Stats.Gold .. " Gold")
     end
     if (New_Stats.HolidayStars - Old_Stats.HolidayStars) > 0 then
-        table.insert(result_stats, "+ " .. New_Stats.HolidayStars - Old_Stats.HolidayStars .. " Holiday Stars")
+        table.insert(result_stats, "> + " .. New_Stats.HolidayStars - Old_Stats.HolidayStars .. " Holiday Stars")
     end
 
     ResultHolder = player.PlayerGui:FindFirstChild("ResultsUI"):FindFirstChild("Holder")
@@ -489,7 +489,7 @@ function webhook()
 
     local text_results = ""
     if tablelength(result_stats) > 0 then
-        text_results = table.concat(result_stats, "\n> ")
+        text_results = table.concat(result_stats, "\n")
     end
 
     local icons = {
