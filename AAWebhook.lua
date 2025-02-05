@@ -41,13 +41,15 @@ game.Players.LocalPlayer.OnTeleport:Connect(
         if state ~= Enum.TeleportState.Started and state ~= Enum.TeleportState.InProgress then
             return
         end
-        queue_on_teleport(
-            [[
-    task.wait(2)
-    if getgenv().GbrlExec then return end -- avoid multiple executions
-    loadstring(game:HttpGet("https://raw.githubusercontent.com/v3zxking/AnimeAdventures/refs/heads/main/AAWebhook.lua"))()
-    ]]
-        )
+        if GabrielWebhook["AutoExec"] then
+            queue_on_teleport(
+                [[
+        task.wait(2)
+        if getgenv().GbrlExec then return end -- avoid multiple executions
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/v3zxking/AnimeAdventures/refs/heads/main/AAWebhook.lua"))()
+        ]]
+            )
+        end
     end
 )
 -- Time Started
