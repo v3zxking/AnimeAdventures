@@ -483,7 +483,7 @@ function webhook()
 
     totalwaves = game:GetService("Workspace")["_wave_num"].Value
 
-    local worldResult = "> (" .. world .. " - " .. result .. ")\n> " .. gamemode .. (challenge or "")
+    local worldResult = "> (" .. world .. " - " .. result .. ")\n> " .. gamemode .. (challenge or "") .. portaldepth
 
     if gamemode == "Infinite Mode" then
         worldResult = "> " .. gamemode .. " - " .. world
@@ -494,8 +494,8 @@ function webhook()
                 " - " ..
                     result ..
                         ")\n> " ..
-                            (getLevelData.name ~= world and getLevelData.name) ..
-                                (challenge ~= "" and " " .. challenge) or ""
+                            (getLevelData.name ~= world and getLevelData.name) .. (challenge ~= "" and " " .. challenge) or
+            ""
     elseif gamemode == "Raid Mode" then
         worldResult =
             "> (" ..
