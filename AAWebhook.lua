@@ -457,9 +457,9 @@ function webhook()
     end
 
     if mapconfig["_challengename"] then
-        challenge = " [" .. mapconfig["_challengename"] .. "]"
+        challenge = " - " .. mapconfig["_challengename"]
     else
-        challenge = " [" .. mapconfig["_difficulty"] .. "]"
+        challenge = " - " .. mapconfig["_difficulty"]
     end
 
     -- Determine Gamemode
@@ -494,8 +494,8 @@ function webhook()
                 " - " ..
                     result ..
                         ")\n> " ..
-                            (getLevelData.name ~= world and getLevelData.name) .. (challenge ~= "" and " " .. challenge) or
-            ""
+                            (getLevelData.name ~= world and getLevelData.name) ..
+                                (challenge ~= "" and " " .. challenge) or ""
     elseif gamemode == "Raid Mode" then
         worldResult =
             "> (" ..
