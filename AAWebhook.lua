@@ -497,7 +497,14 @@ function webhook()
                             (getLevelData.name ~= world and getLevelData.name) ..
                                 " [" .. mapconfig["_difficulty"] .. "]"
     elseif gamemode == "Raid Mode" then
-        worldResult = "> (" .. world .. " - " .. result .. ")\n> " .. getLevelData.name:gsub("Raid: ", "")
+        worldResult =
+            "> (" ..
+            world ..
+                " - " ..
+                    result ..
+                        ")\n> " ..
+                            getLevelData.name:gsub("Raid: ", ""):gsub("Contract: ", "") ..
+                                (challenge ~= "" and " " .. challenge) or ""
     elseif gamemode:find("Infinity Castle") then
         worldResult =
             "> (" .. world .. " - " .. result .. ")\n> " .. gamemode .. " - Room: " .. tostring(mapconfig["floor_num"])
