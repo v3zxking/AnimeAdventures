@@ -453,7 +453,7 @@ function webhook()
 
     -- Format strings
     if mapconfig["_portal_depth"] then
-        portaldepth = "\n(Tier: " .. mapconfig["_portal_depth"] .. ")"
+        portaldepth = "\n> (Tier: " .. mapconfig["_portal_depth"] .. ")"
     end
 
     if mapconfig["_challengename"] then
@@ -494,8 +494,8 @@ function webhook()
                 " - " ..
                     result ..
                         ")\n> " ..
-                            (getLevelData.name ~= world and getLevelData.name) .. (challenge ~= "" and " " .. challenge) or
-            ""
+                            (getLevelData.name ~= world and getLevelData.name) ..
+                                (challenge ~= "" and " " .. challenge) or ""
     elseif gamemode == "Raid Mode" then
         worldResult =
             "> (" ..
