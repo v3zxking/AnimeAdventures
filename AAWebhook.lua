@@ -366,7 +366,7 @@ function webhook()
     local outputLevel = string.format("Level: %d ||[%d/%d]||", playerLevel, currentXpInLevel, maxXpForLevel)
     -- Total XP Given
     local xp_received = currentXp - v19["session"]["profile_data"]["player_xp"]
-    local output_xp_received = (xp_received > 0 and "> + " .. xp_received .. " XP\n") or "\n"
+    local output_xp_received = (xp_received > 0 and "> + " .. xp_received .. " XP") or ""
     -- Player Stats
     New_Stats = newStatsData()
     local result_stats = {}
@@ -521,6 +521,7 @@ function webhook()
     local text_results = ""
     if tablelength(result_stats) > 0 then
         text_results = table.concat(result_stats, "\n")
+        text_results = "\n> " .. text_results
     end
 
     local icons = {
