@@ -521,7 +521,7 @@ function webhook()
     local text_results = ""
     if tablelength(result_stats) > 0 then
         text_results = table.concat(result_stats, "\n")
-        text_results = "\n> " .. text_results
+        text_results = "\n" .. text_results
     end
 
     local icons = {
